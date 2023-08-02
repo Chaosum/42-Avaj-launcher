@@ -17,7 +17,7 @@ public class Coordinates {
 			p_height = 100;
 		else if (p_height < 0)
 			p_height = 0;
-		this.longitude = p_longitude;		
+		this.longitude = p_longitude;
 		this.latitude = p_latitude;
 		this.height = p_height;
 	}
