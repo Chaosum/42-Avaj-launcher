@@ -18,14 +18,15 @@ public class AircraftFactory {
     //     }
     //     return instance;
     // }
-    public static Flyable newAircraft(long p_id, String p_type, String p_name, Coordinates p_coordinates) throws Exception {
+    private static long idCounter = 0;
+    public static Flyable newAircraft(String p_type, String p_name, Coordinates p_coordinates) throws Exception {
         if (p_type.toLowerCase().equals("helicopter")) {
             try (PrintWriter writer = new PrintWriter(new FileWriter("simulation.txt", true))) {
                 writer.println(p_type + " " + p_name + " has been created.");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            return (new Helicopter(p_id, p_name, p_coordinates));
+            return (new Helicopter(idCounter++, p_name, p_coordinates));
         }
 		else if (p_type.toLowerCase().equals("jetplane")) {
             try (PrintWriter writer = new PrintWriter(new FileWriter("simulation.txt", true))) {
@@ -33,7 +34,7 @@ public class AircraftFactory {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            return (new JetPlane(p_id, p_name, p_coordinates));
+            return (new JetPlane(idCounter++, p_name, p_coordinates));
         }
 		else if (p_type.toLowerCase().equals("baloon")) {
             try (PrintWriter writer = new PrintWriter(new FileWriter("simulation.txt", true))) {
@@ -41,7 +42,7 @@ public class AircraftFactory {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            return (new Baloon(p_id, p_name, p_coordinates));
+            return (new Baloon(idCounter++, p_name, p_coordinates));
         }
 		else {
 			throw new UnknownAircraftTypeException(p_type);

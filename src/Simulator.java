@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -160,7 +158,7 @@ public static void verifyFileAndFormat(String file) throws Exception {
 		while ((line = reader.readLine()) != null) {
 			content = line.split(" ");
 			Coordinates coordinates = new Coordinates(Integer.parseInt(content[2]), Integer.parseInt(content[3]), Integer.parseInt(content[4]));
-			aircraftList.add(AircraftFactory.newAircraft(i, content[0], content[1], coordinates));
+			aircraftList.add(AircraftFactory.newAircraft(content[0], content[1], coordinates));
 			aircraftList.get(i).registerTower(WeatherTower);
 			i++;
 		}
