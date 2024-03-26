@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Set;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -63,6 +65,18 @@ public class Simulator {
 			super(exception);
 		}
 		public LineFormatException(Exception exception) {
+			super(exception);
+		}
+	}
+
+	public static class wrongArgumentsException extends Exception {
+		public wrongArgumentsException() {
+			super("Error: wrong arguments. Expected only a sceanario file");
+		}
+		public wrongArgumentsException(String exception) {
+			super(exception);
+		}
+		public wrongArgumentsException(Exception exception) {
 			super(exception);
 		}
 	}
@@ -138,12 +152,15 @@ public static void verifyFileAndFormat(String file) throws Exception {
 			}
 			throw new Exception("Error while reading file : " + e.getMessage());
 		}
+		PrintWriter writer = new PrintWriter("simulation.txt");
+		writer.close();
+
 		cycles = Integer.parseInt(line);
 		int i = 0;
 		while ((line = reader.readLine()) != null) {
 			content = line.split(" ");
 			Coordinates coordinates = new Coordinates(Integer.parseInt(content[2]), Integer.parseInt(content[3]), Integer.parseInt(content[4]));
-			aircraftList.add(AircraftFactory.newAircraft(content[0], content[1], coordinates));
+			aircraftList.add(AircraftFactory.newAircraft(i, content[0], content[1], coordinates));
 			aircraftList.get(i).registerTower(WeatherTower);
 			i++;
 		}
@@ -158,10 +175,10 @@ public static void verifyFileAndFormat(String file) throws Exception {
 
 
 	public static void main(String [] args) {
-		if (args.length != 1) {
-			return ;
-		}
 		try {
+			if (args.length != 1) {
+				throw new wrongArgumentsException();
+			}
 			initSimualtion(args[0]);	
 		} catch (Exception e) {
 			System.out.println(e);

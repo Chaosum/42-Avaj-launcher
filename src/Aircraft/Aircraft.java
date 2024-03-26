@@ -7,13 +7,10 @@ public class Aircraft extends Flyable{
 	protected String name;
 	protected Coordinates coordinates;
 
-	public static long max_id = 0;
-
-	protected Aircraft(String name, Coordinates coordinates) {
-        this.name = name;
-        this.coordinates = coordinates;
-		this.id = max_id;
-		max_id++;
+	protected Aircraft(long p_id, String name, Coordinates coordinates) {
+		this.id = p_id;
+		this.name = name;
+		this.coordinates = coordinates;
 	}
 
 	@Override
